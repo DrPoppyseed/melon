@@ -1,0 +1,25 @@
+x-app: &default-app
+  env_file:
+    - ".env"
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  stop_grace_period: "3s"
+
+services:
+  client:
+    <<: *default-app
+    build: 
+      context: "./client"
+    depends_on:
+      - "postgres"
+      - "redis"
+    command: "vite start"
+    ports:
+      - "${DOCKER_CLIENT_PORT_FORWARD:-127.0.0.1:8000}:8000"
+
+  server:
+    <<: *default-app
+    build: 
+      context: "./server"
+    depends_on:
+      - "postgres"
+      - "redis"

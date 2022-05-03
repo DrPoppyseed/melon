@@ -1,0 +1,16 @@
+##### Environment files #####
+
+# machine related files
+**/.DS_Store
+
+# environment variables
+.env*
+!.env.example
+
+##### Build files #####
+
+# client
+client/node_modules
+
+# server
+server/target
